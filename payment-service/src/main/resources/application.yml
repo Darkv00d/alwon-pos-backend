@@ -1,0 +1,16 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: payment-service
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/alwon_pos}
+    username: ${SPRING_DATASOURCE_USERNAME:alwon}
+    password: ${SPRING_DATASOURCE_PASSWORD:alwon2024}
+  jpa:
+    properties:
+      hibernate:
+        default_schema: payments
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: 5672

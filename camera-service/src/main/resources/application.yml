@@ -1,0 +1,6 @@
+# Camera Service (8085) - Mock for MVP
+server:
+  port: 8085
+spring:
+  application:
+    name: camera-service

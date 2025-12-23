@@ -1,0 +1,95 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: 
+              - "http://localhost:5173"
+              - "http://localhost:3000"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowed-headers: "*"
+            allow-credentials: true
+            max-age: 3600
+      routes:
+        # Session Service Routes
+        - id: session-service
+          uri: ${SESSION_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/sessions/**
+          filters:
+            - RewritePath=/api/sessions/(?<segment>.*), /${segment}
+
+        # Cart Service Routes
+        - id: cart-service
+          uri: ${CART_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/carts/**
+          filters:
+            - RewritePath=/api/carts/(?<segment>.*), /${segment}
+
+        # Product Service Routes
+        - id: product-service
+          uri: ${PRODUCT_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/products/**
+          filters:
+            - RewritePath=/api/products/(?<segment>.*), /${segment}
+
+        # Payment Service Routes
+        - id: payment-service
+          uri: ${PAYMENT_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/payments/**
+          filters:
+            - RewritePath=/api/payments/(?<segment>.*), /${segment}
+
+        # Camera Service Routes
+        - id: camera-service
+          uri: ${CAMERA_SERVICE_URL:http://localhost:8085}
+          predicates:
+            - Path=/api/camera/**
+          filters:
+            - RewritePath=/api/camera/(?<segment>.*), /${segment}
+
+        # Access Service Routes
+        - id: access-service
+          uri: ${ACCESS_SERVICE_URL:http://localhost:8086}
+          predicates:
+            - Path=/api/access/**
+          filters:
+            - RewritePath=/api/access/(?<segment>.*), /${segment}
+
+        # Inventory Service Routes
+        - id: inventory-service
+          uri: ${INVENTORY_SERVICE_URL:http://localhost:8087}
+          predicates:
+            - Path=/api/inventory/**
+          filters:
+            - RewritePath=/api/inventory/(?<segment>.*), /${segment}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

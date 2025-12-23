@@ -1,0 +1,6 @@
+# Inventory Service (8087)
+server:
+  port: 8087
+spring:
+  application:
+    name: inventory-service

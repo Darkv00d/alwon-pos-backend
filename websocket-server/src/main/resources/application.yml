@@ -1,0 +1,10 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: websocket-server
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: 5672
+    username: ${RABBITMQ_USERNAME:alwon}
+    password: ${RABBITMQ_PASSWORD:alwon2024}
