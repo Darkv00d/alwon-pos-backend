@@ -22,7 +22,7 @@ public class CustomerSession {
     private String sessionId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "client_type", nullable = false)
+    @Column(name = "customer_type", nullable = false)
     private ClientType clientType;
 
     @Column(name = "customer_id")
@@ -31,7 +31,19 @@ public class CustomerSession {
     @Column(name = "customer_name")
     private String customerName;
 
-    @Column(name = "customer_photo_url")
+    @Column(name = "tower")
+    private String tower;
+
+    @Column(name = "apartment")
+    private String apartment;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "photo_url")
     private String customerPhotoUrl;
 
     @Enumerated(EnumType.STRING)
@@ -44,8 +56,11 @@ public class CustomerSession {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "closed_at")
-    private LocalDateTime closedAt;
+    @Column(name = "expires_at")
+    private LocalDateTime expiresAt;
+
+    @Column(name = "last_activity_at")
+    private LocalDateTime lastActivityAt;
 
     @PrePersist
     protected void onCreate() {

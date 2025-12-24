@@ -62,7 +62,6 @@ public class SessionService {
                 .orElseThrow(() -> new RuntimeException("Session not found: " + sessionId));
 
         session.setStatus(SessionStatus.CLOSED);
-        session.setClosedAt(LocalDateTime.now());
         CustomerSession updated = sessionRepository.save(session);
 
         log.info("Closed session: {}", sessionId);

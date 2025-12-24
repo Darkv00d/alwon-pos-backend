@@ -54,9 +54,7 @@ public class CategoryService {
         Category category = new Category();
         category.setName(request.getName());
         category.setDescription(request.getDescription());
-        category.setIconUrl(request.getIconUrl());
         category.setActive(request.getActive());
-        category.setDisplayOrder(request.getDisplayOrder());
 
         Category saved = categoryRepository.save(category);
         log.info("Category created with ID: {}", saved.getId());
@@ -74,12 +72,8 @@ public class CategoryService {
             category.setName(request.getName());
         if (request.getDescription() != null)
             category.setDescription(request.getDescription());
-        if (request.getIconUrl() != null)
-            category.setIconUrl(request.getIconUrl());
         if (request.getActive() != null)
             category.setActive(request.getActive());
-        if (request.getDisplayOrder() != null)
-            category.setDisplayOrder(request.getDisplayOrder());
 
         Category updated = categoryRepository.save(category);
         log.info("Category updated successfully");
@@ -101,9 +95,7 @@ public class CategoryService {
         dto.setId(category.getId());
         dto.setName(category.getName());
         dto.setDescription(category.getDescription());
-        dto.setIconUrl(category.getIconUrl());
         dto.setActive(category.getActive());
-        dto.setDisplayOrder(category.getDisplayOrder());
         dto.setProductCount(category.getProducts() != null ? category.getProducts().size() : 0);
         dto.setCreatedAt(category.getCreatedAt());
         dto.setUpdatedAt(category.getUpdatedAt());

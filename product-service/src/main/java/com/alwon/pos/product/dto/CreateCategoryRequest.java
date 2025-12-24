@@ -18,10 +18,5 @@ public class CreateCategoryRequest {
     @Size(max = 500, message = "Description must be less than 500 characters")
     private String description;
 
-    @Size(max = 500, message = "Icon URL must be less than 500 characters")
-    private String iconUrl;
-
     private Boolean active = true;
-
-    private Integer displayOrder = 0;
 }

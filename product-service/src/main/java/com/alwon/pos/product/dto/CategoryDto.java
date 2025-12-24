@@ -13,9 +13,7 @@ public class CategoryDto {
     private Long id;
     private String name;
     private String description;
-    private String iconUrl;
     private Boolean active;
-    private Integer displayOrder;
     private Integer productCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

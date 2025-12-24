@@ -26,14 +26,8 @@ public class Category {
     @Column(length = 500)
     private String description;
 
-    @Column(name = "icon_url", length = 500)
-    private String iconUrl;
-
     @Column(nullable = false)
     private Boolean active = true;
-
-    @Column(name = "display_order", nullable = false)
-    private Integer displayOrder = 0;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
