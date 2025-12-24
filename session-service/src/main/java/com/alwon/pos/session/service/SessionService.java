@@ -87,7 +87,11 @@ public class SessionService {
 
     private void publishSessionEvent(String eventType, CustomerSession session) {
         try {
-            rabbitTemplate.convertAndSend("alwon.events", eventType, mapToResponse(session));
+            if (rabbitTemplate != null) {
+                rabbitTemplate.convertAndSend("alwon.events", eventType, mapToResponse(session));
+            } else {
+                log.warn("RabbitMQ not configured, skipping event publish: {}", eventType);
+            }
         } catch (Exception e) {
             log.error("Failed to publish session event: {}", eventType, e);
         }
