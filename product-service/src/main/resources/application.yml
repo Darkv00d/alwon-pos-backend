@@ -1,23 +1,44 @@
 server:
   port: 8083
+
 spring:
   application:
     name: product-service
+  
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/alwon_pos}
     username: ${SPRING_DATASOURCE_USERNAME:alwon}
     password: ${SPRING_DATASOURCE_PASSWORD:alwon2024}
+    driver-class-name: org.postgresql.Driver
+  
   jpa:
     hibernate:
       ddl-auto: none
+    show-sql: false
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: products
+        format_sql: true
+
 management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.alwon.pos.product: DEBUG
+    org.springframework: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
 springdoc:
+  api-docs:
+    path: /api-docs
   swagger-ui:
     path: /swagger-ui.html

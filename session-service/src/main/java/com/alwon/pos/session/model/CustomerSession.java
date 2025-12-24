@@ -57,16 +57,4 @@ public class CustomerSession {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
-    public enum ClientType {
-        FACIAL, // Verde - Cliente registrado
-        PIN, // Amarillo - Cliente temporal
-        NO_ID // Rojo - Sin identificación
-    }
-
-    public enum SessionStatus {
-        ACTIVE,
-        SUSPENDED,
-        CLOSED
-    }
 }

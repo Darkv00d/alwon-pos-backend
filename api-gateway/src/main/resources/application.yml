@@ -28,15 +28,15 @@ spring:
           predicates:
             - Path=/api/sessions/**
           filters:
-            - RewritePath=/api/sessions/(?<segment>.*), /${segment}
+            - StripPrefix=1
 
-        # Cart Service Routes
+        # Cart Service Routes  
         - id: cart-service
           uri: ${CART_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/carts/**
           filters:
-            - RewritePath=/api/carts/(?<segment>.*), /${segment}
+            - StripPrefix=1
 
         # Product Service Routes
         - id: product-service
@@ -44,7 +44,15 @@ spring:
           predicates:
             - Path=/api/products/**
           filters:
-            - RewritePath=/api/products/(?<segment>.*), /${segment}
+            - StripPrefix=1
+
+        # Category Routes (Product Service)
+        - id: category-service
+          uri: ${PRODUCT_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/categories/**
+          filters:
+            - StripPrefix=1
 
         # Payment Service Routes
         - id: payment-service
@@ -52,7 +60,7 @@ spring:
           predicates:
             - Path=/api/payments/**
           filters:
-            - RewritePath=/api/payments/(?<segment>.*), /${segment}
+            - StripPrefix=1
 
         # Camera Service Routes
         - id: camera-service
@@ -60,7 +68,7 @@ spring:
           predicates:
             - Path=/api/camera/**
           filters:
-            - RewritePath=/api/camera/(?<segment>.*), /${segment}
+            - StripPrefix=1
 
         # Access Service Routes
         - id: access-service
@@ -68,7 +76,7 @@ spring:
           predicates:
             - Path=/api/access/**
           filters:
-            - RewritePath=/api/access/(?<segment>.*), /${segment}
+            - StripPrefix=1
 
         # Inventory Service Routes
         - id: inventory-service
@@ -76,7 +84,7 @@ spring:
           predicates:
             - Path=/api/inventory/**
           filters:
-            - RewritePath=/api/inventory/(?<segment>.*), /${segment}
+            - StripPrefix=1
 
 management:
   endpoints:

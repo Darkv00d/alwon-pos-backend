@@ -1,10 +1,25 @@
 server:
   port: 8090
+
 spring:
   application:
     name: websocket-server
+
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
-    port: 5672
+    port: ${RABBITMQ_PORT:5672}
     username: ${RABBITMQ_USERNAME:alwon}
     password: ${RABBITMQ_PASSWORD:alwon2024}
+    virtual-host: ${RABBITMQ_VHOST:alwon-vhost}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+logging:
+  level:
+    com.alwon.pos.websocket: DEBUG
+    org.springframework.messaging: INFO
+    org.springframework.web.socket: INFO

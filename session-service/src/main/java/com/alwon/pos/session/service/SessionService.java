@@ -3,7 +3,7 @@ package com.alwon.pos.session.service;
 import com.alwon.pos.session.dto.CreateSessionRequest;
 import com.alwon.pos.session.dto.SessionResponse;
 import com.alwon.pos.session.model.CustomerSession;
-import com.alwon.pos.session.model.CustomerSession.SessionStatus;
+import com.alwon.pos.session.model.SessionStatus;
 import com.alwon.pos.session.repository.CustomerSessionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.alwon.pos.session.dto;
 
-import com.alwon.pos.session.model.CustomerSession.ClientType;
+import com.alwon.pos.session.model.ClientType;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

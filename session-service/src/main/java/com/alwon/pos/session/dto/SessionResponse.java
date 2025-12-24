@@ -1,7 +1,7 @@
 package com.alwon.pos.session.dto;
 
-import com.alwon.pos.session.model.CustomerSession.ClientType;
-import com.alwon.pos.session.model.CustomerSession.SessionStatus;
+import com.alwon.pos.session.model.ClientType;
+import com.alwon.pos.session.model.SessionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

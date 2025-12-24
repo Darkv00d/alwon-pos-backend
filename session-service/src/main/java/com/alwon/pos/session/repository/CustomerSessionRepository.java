@@ -1,7 +1,7 @@
 package com.alwon.pos.session.repository;
 
 import com.alwon.pos.session.model.CustomerSession;
-import com.alwon.pos.session.model.CustomerSession.SessionStatus;
+import com.alwon.pos.session.model.SessionStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
