@@ -1,0 +1,29 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: external-api-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/alwon_pos
+    username: alwon_user
+    password: alwon_pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: sessions
+
+# Service URLs
+services:
+  session: http://localhost:8081
+  cart: http://localhost:8082
+  product: http://localhost:8083
+
+logging:
+  level:
+    com.alwon.pos: DEBUG

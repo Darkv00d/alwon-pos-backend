@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "shopping_carts", schema = "carts")
+@Table(name = "carts", schema = "carts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,13 +21,16 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "session_id", unique = true, nullable = false)
+    @Column(name = "cart_id", unique = true, nullable = false)
+    private String cartId;
+
+    @Column(name = "session_id", nullable = false)
     private String sessionId;
 
     @Column(name = "total_amount", nullable = false)
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
-    @Column(name = "items_count", nullable = false)
+    @Column(name = "total_items", nullable = false)
     private Integer itemsCount = 0;
 
     @Enumerated(EnumType.STRING)

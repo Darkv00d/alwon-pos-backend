@@ -20,17 +20,14 @@ public class CartItem {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id", nullable = false)
+    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id", nullable = false)
     private ShoppingCart cart;
 
-    @Column(name = "product_id", nullable = false)
-    private Long productId;
+    @Column(name = "product_sku", nullable = false)
+    private String productSku;
 
     @Column(name = "product_name", nullable = false)
     private String productName;
-
-    @Column(name = "product_image_url")
-    private String productImageUrl;
 
     @Column(nullable = false)
     private Integer quantity = 1;
@@ -38,11 +35,14 @@ public class CartItem {
     @Column(name = "unit_price", nullable = false)
     private BigDecimal unitPrice;
 
-    @Column(name = "total_price", nullable = false)
-    private BigDecimal totalPrice;
+    @Column(name = "subtotal", nullable = false)
+    private BigDecimal subtotal;
 
-    @Column(name = "added_by")
-    private String addedBy; // 'AI' or operator username
+    @Column(name = "detection_confidence")
+    private BigDecimal detectionConfidence;
+
+    @Column(name = "requires_review")
+    private Boolean requiresReview = false;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -54,16 +54,21 @@ public class CartItem {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
-        calculateTotalPrice();
+        calculateSubtotal();
     }
 
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
-        calculateTotalPrice();
+        calculateSubtotal();
     }
 
-    private void calculateTotalPrice() {
-        this.totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity));
+    private void calculateSubtotal() {
+        this.subtotal = unitPrice.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    // Getter for backward compatibility with ShoppingCart.recalculateTotals()
+    public BigDecimal getTotalPrice() {
+        return this.subtotal;
     }
 }

@@ -104,6 +104,8 @@ public class SessionService {
                 session.getCustomerId(),
                 session.getCustomerName(),
                 session.getCustomerPhotoUrl(),
+                session.getTower(),
+                session.getApartment(),
                 session.getStatus(),
                 session.getCreatedAt(),
                 session.getUpdatedAt());

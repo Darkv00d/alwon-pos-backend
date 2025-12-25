@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CartResponse {
     private Long id;
+    private String cartId;
     private String sessionId;
     private BigDecimal totalAmount;
     private Integer itemsCount;
@@ -26,12 +27,10 @@ public class CartResponse {
     @AllArgsConstructor
     public static class CartItemResponse {
         private Long id;
-        private Long productId;
+        private String productSku;
         private String productName;
-        private String productImageUrl;
         private Integer quantity;
         private BigDecimal unitPrice;
-        private BigDecimal totalPrice;
-        private String addedBy;
+        private BigDecimal subtotal;
     }
 }

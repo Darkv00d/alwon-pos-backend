@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +28,7 @@ public class CartService {
         ShoppingCart cart = cartRepository.findBySessionId(sessionId)
                 .orElseGet(() -> {
                     ShoppingCart newCart = new ShoppingCart();
+                    newCart.setCartId("cart-" + UUID.randomUUID().toString());
                     newCart.setSessionId(sessionId);
                     return cartRepository.save(newCart);
                 });
@@ -40,7 +42,7 @@ public class CartService {
 
         // Check if item already exists
         CartItem existingItem = cart.getItems().stream()
-                .filter(item -> item.getProductId().equals(request.getProductId()))
+                .filter(item -> item.getProductSku().equals(request.getProductSku()))
                 .findFirst()
                 .orElse(null);
 
@@ -49,19 +51,17 @@ public class CartService {
         } else {
             CartItem newItem = new CartItem();
             newItem.setCart(cart);
-            newItem.setProductId(request.getProductId());
+            newItem.setProductSku(request.getProductSku());
             newItem.setProductName(request.getProductName());
-            newItem.setProductImageUrl(request.getProductImageUrl());
             newItem.setQuantity(request.getQuantity());
             newItem.setUnitPrice(request.getUnitPrice());
-            newItem.setAddedBy("OPERATOR"); // Simplified for MVP
             cart.getItems().add(newItem);
         }
 
         cart.recalculateTotals();
         ShoppingCart saved = cartRepository.save(cart);
 
-        log.info("Added item to cart. Session: {}, Product: {}", sessionId, request.getProductId());
+        log.info("Added item to cart. Session: {}, Product: {}", sessionId, request.getProductSku());
         publishCartEvent("cart.updated", saved);
 
         return mapToResponse(saved);
@@ -114,17 +114,16 @@ public class CartService {
         List<CartResponse.CartItemResponse> itemResponses = cart.getItems().stream()
                 .map(item -> new CartResponse.CartItemResponse(
                         item.getId(),
-                        item.getProductId(),
+                        item.getProductSku(),
                         item.getProductName(),
-                        item.getProductImageUrl(),
                         item.getQuantity(),
                         item.getUnitPrice(),
-                        item.getTotalPrice(),
-                        item.getAddedBy()))
+                        item.getSubtotal()))
                 .collect(Collectors.toList());
 
         return new CartResponse(
                 cart.getId(),
+                cart.getCartId(),
                 cart.getSessionId(),
                 cart.getTotalAmount(),
                 cart.getItemsCount(),

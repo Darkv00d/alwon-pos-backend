@@ -18,6 +18,8 @@ public class SessionResponse {
     private String customerId;
     private String customerName;
     private String customerPhotoUrl;
+    private String tower;
+    private String apartment;
     private SessionStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
